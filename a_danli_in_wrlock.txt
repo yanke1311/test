@@ -1,0 +1,14 @@
+
+//一个用写锁的单例
+Danli* Danli::GetInstance()
+{
+  if (instance == NULL)
+  {
+    pthread_rwlock_wrlock(&instance_lock_);
+    if (instance == NULL)
+    {
+      instance = new Danli();
+    }
+    pthread_rwlock_unlock(&instance_lock_);
+  }
+}
